@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team4183.robot.commands.ExampleCommand;
 import org.usfirst.frc.team4183.robot.commands.UrMumPulls;
+import org.usfirst.frc.team4183.robot.commands.moveDown2;
 import org.usfirst.frc.team4183.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team4183.robot.subsystems.UrMumStacks;
 import org.usfirst.frc.team4183.robot.commands.moveUp2;
@@ -87,6 +88,7 @@ public class Robot extends IterativeRobot {
         UrMumStacks.setPullMotor(oi.stick.getAxis(AxisType.kY));
        // SmartDashboard.putNumber("Pull Sped", UrMumStacks.returnPullMotor());
         oi.button1.whenPressed(new moveUp2());
+        oi.button2.whenPressed(new moveDown2());
     }
     
     /**
