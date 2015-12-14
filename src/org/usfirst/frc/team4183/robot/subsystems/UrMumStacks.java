@@ -3,6 +3,7 @@ package org.usfirst.frc.team4183.robot.subsystems;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -30,6 +31,7 @@ public class UrMumStacks extends Subsystem {
     
     public void setPullMotor(double speed){
     	pull.set(speed);
+    	SmartDashboard.putNumber("Pull Sped", pull.getEncPosition());
     	
     }
     

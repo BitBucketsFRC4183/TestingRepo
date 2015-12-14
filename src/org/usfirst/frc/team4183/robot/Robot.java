@@ -12,6 +12,7 @@ import org.usfirst.frc.team4183.robot.commands.ExampleCommand;
 import org.usfirst.frc.team4183.robot.commands.UrMumPulls;
 import org.usfirst.frc.team4183.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team4183.robot.subsystems.UrMumStacks;
+import org.usfirst.frc.team4183.robot.commands.moveUp2;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -23,7 +24,9 @@ import org.usfirst.frc.team4183.robot.subsystems.UrMumStacks;
 public class Robot extends IterativeRobot {
 
 	public static final org.usfirst.frc.team4183.robot.subsystems.UrMumStacks UrMumStacks = new UrMumStacks();
+	
 	public static OI oi;
+	
 
     Command autonomousCommand;
 
@@ -33,10 +36,11 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
 		oi = new OI();
+		
         // instantiate the command used for t	he autonomous period
         autonomousCommand = new ExampleCommand();
-        
-        
+       
+        moveUp2 moveUp2 = new moveUp2();
         
     }
 	
@@ -61,7 +65,8 @@ public class Robot extends IterativeRobot {
         // teleop starts running. If you want the autonomous to 
         // continue until interrupted by another command, remove
         // this line or comment it out.
-        if (autonomousCommand != null) autonomousCommand.cancel();
+        if (autonomousCommand != null) 
+        	autonomousCommand.cancel();
     }
 
     /**
@@ -80,7 +85,8 @@ public class Robot extends IterativeRobot {
         Scheduler.getInstance().run();
         //UrMumStacks.setPullMotor(SmartDashboard.getNumber("Pull Sped"));
         UrMumStacks.setPullMotor(oi.stick.getAxis(AxisType.kY));
-        SmartDashboard.putNumber("Pull Sped", UrMumStacks.returnPullMotor());
+       // SmartDashboard.putNumber("Pull Sped", UrMumStacks.returnPullMotor());
+        oi.button1.whenPressed(new moveUp2());
     }
     
     /**
