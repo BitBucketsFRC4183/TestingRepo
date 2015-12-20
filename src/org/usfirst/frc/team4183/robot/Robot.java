@@ -1,8 +1,11 @@
 
 package org.usfirst.frc.team4183.robot;
 
+import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick.AxisType;
+import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -24,8 +27,17 @@ public class Robot extends IterativeRobot {
 
 	public static final org.usfirst.frc.team4183.robot.subsystems.UrMumStacks UrMumStacks = new UrMumStacks();
 	public static OI oi;
+	public static RobotMap robotMap;
+	
+	CANTalon topRight = new CANTalon(2);
+	CANTalon backRight = new CANTalon(4);
+	CANTalon topLeft = new CANTalon(1);
+	CANTalon backLeft = new CANTalon(3);
 
     Command autonomousCommand;
+    
+    RobotDrive rDrive;
+    private Gyro gyro;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -33,13 +45,17 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
 		oi = new OI();
+		robotMap = new RobotMap();
         // instantiate the command used for t	he autonomous period
         autonomousCommand = new ExampleCommand();
         
+        rDrive = new RobotDrive(topLeft, backLeft, topRight, backRight);
         
+        gyro = new Gyro(RobotMap.GYROPORT);
         
     }
 	
+    
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 	}
@@ -53,7 +69,11 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
+    	gyro.reset();
         Scheduler.getInstance().run();
+        
+        SmartDashboard.putNumber("Gyro", gyro.getAngle());
+        
     }
 
     public void teleopInit() {
